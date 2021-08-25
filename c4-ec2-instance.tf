@@ -33,7 +33,7 @@ resource "aws_instance" "my-ec2-vm" {
        #we are ensuring that apache server is provison using user_data
       "sudo cp /tmp/file-copy.html /var/www/html", #remote-exec always execute inside your vm
       "sudo yum install tree -y",
-      "sudo amazon-linux-extras install docker",
+      "sudo amazon-linux-extras install docker -y",
       "sudo service docker start",
        "sudo usermod -a -G docker ec2-user",
        "sudo chkconfig docker on",
