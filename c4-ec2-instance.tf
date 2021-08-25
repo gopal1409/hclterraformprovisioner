@@ -48,7 +48,7 @@ resource "aws_instance" "my-ec2-vm" {
   }
   provisioner "local-exec" {
    when = destroy
-   command = "echo this instance is destroyed 'date'" >> destroy-time.txt
+   command = "echo this instance is destroyed 'date' >> destroy-time.txt"
    working_dir = "local-exec-output-file/"
   }
 }
