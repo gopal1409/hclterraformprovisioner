@@ -21,24 +21,19 @@ resource "aws_instance" "my-ec2-vm" {
     password = ""
     private_key = file("private-key/terraform-key.pem")
   }
+  #ec2-user this user do not have any direct access to copy file in any other folder except tmp direct
   #now we can copy the file
   provisioner "file" {
     source = "app/file-copy.html" #local machine 
     destination = "/tmp/file-copy.html" #remote machine
   }
-  provisioner "file" {
-    content = "ami used: ${self.ami}" #gather the ami details
-    destination = "/tmp/file.log" #store in this file. 
-  }
-  #copy the app1 folder to the /tmp folder
-  provisioner "file" {
-    source = "app/app1" #local machine 
-    destination = "/tmp" #remote machine
-  }
-#when you put "/" content of the folder will be copied. 
-  provisioner "file" {
-    source = "apps/app2/" #local machine 
-    destination = "/tmp" #remote machine
+  #copy the file to apache webserver /var/www/html directory
+  provisioner "remote-exec" {
+    inline = [
+      "sleep 120" #we are ensuring that apache server is provison using user_data
+      "sudo cp /tmp/file-copy.html /var/www/html" #remote-exec always execute inside your vm
+      "sudo yum install tree -y"
+    ]
   }
   
 }
