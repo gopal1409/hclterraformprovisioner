@@ -41,7 +41,16 @@ resource "aws_instance" "my-ec2-vm" {
        "sudo docker container run --publish 80:80 --detach --name webhost nginx",
     ]
   }
-  
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.my-ec2-vm.private_ip} >> creation-time-private-ip.txt"
+    working_dir = "local-exec-output-file/"
+    
+  }
+  provisioner "local-exec" {
+   when = destroy
+   command = "echo this instance is destroyed 'date'" >> destroy-time.txt
+   working_dir = "local-exec-output-file/"
+  }
 }
 
 
