@@ -36,6 +36,7 @@ resource "aws_instance" "my-ec2-vm" {
       "sudo amazon-linux-extras install docker",
       "sudo service docker start",
        "sudo usermod -a -G docker ec2-user",
+       "sudo chkconfig docker on",
        "sleep 120",
        "sudo docker container run --publish 80:80 --detach --name webhost nginx",
     ]
