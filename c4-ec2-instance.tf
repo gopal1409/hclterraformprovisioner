@@ -32,7 +32,7 @@ resource "aws_instance" "my-ec2-vm" {
   }
   #copy the app1 folder to the /tmp folder
   provisioner "file" {
-    source = "apps/app1" #local machine 
+    source = "app/app1" #local machine 
     destination = "/tmp" #remote machine
   }
 #when you put "/" content of the folder will be copied. 
