@@ -23,7 +23,7 @@ resource "aws_instance" "my-ec2-vm" {
   }
   #now we can copy the file
   provisioner "file" {
-    source = "apps/file-copy.html" #local machine 
+    source = "app/file-copy.html" #local machine 
     destination = "/tmp/file-copy.html" #remote machine
   }
   provisioner "file" {
