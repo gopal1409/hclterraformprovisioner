@@ -34,10 +34,10 @@ resource "aws_instance" "my-ec2-vm" {
       "sudo cp /tmp/file-copy.html /var/www/html", #remote-exec always execute inside your vm
       "sudo yum install tree -y",
       "sudo amazon-linux-extras install docker -y",
+      "sleep 90",
       "sudo service docker start",
        "sudo usermod -a -G docker ec2-user",
        "sudo chkconfig docker on",
-       "sleep 120",
        "sudo docker container run --publish 80:80 --detach --name webhost nginx",
     ]
   }
