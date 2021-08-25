@@ -30,9 +30,9 @@ resource "aws_instance" "my-ec2-vm" {
   #copy the file to apache webserver /var/www/html directory
   provisioner "remote-exec" {
     inline = [
-      "sleep 120" #we are ensuring that apache server is provison using user_data
-      "sudo cp /tmp/file-copy.html /var/www/html" #remote-exec always execute inside your vm
-      "sudo yum install tree -y"
+      "sleep 120", #we are ensuring that apache server is provison using user_data
+      "sudo cp /tmp/file-copy.html /var/www/html", #remote-exec always execute inside your vm
+      "sudo yum install tree -y",
     ]
   }
   
