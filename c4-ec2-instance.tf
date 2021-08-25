@@ -5,7 +5,7 @@ resource "aws_instance" "my-ec2-vm" {
   key_name = "terraform-key"
   instance_type = var.instance_type
   #count = terraform.workspace == "default" ? 2:1
-  user_data = file("apache-install.sh")
+  #user_data = file("apache-install.sh")
   vpc_security_group_ids = [aws_security_group.vpc-ssh.id,aws_security_group.vpc-web.id]
   
   tags = {
@@ -30,9 +30,14 @@ resource "aws_instance" "my-ec2-vm" {
   #copy the file to apache webserver /var/www/html directory
   provisioner "remote-exec" {
     inline = [
-      "sleep 120", #we are ensuring that apache server is provison using user_data
+       #we are ensuring that apache server is provison using user_data
       "sudo cp /tmp/file-copy.html /var/www/html", #remote-exec always execute inside your vm
       "sudo yum install tree -y",
+      "sudo amazon-linux-extras install docker",
+      "sudo service docker start",
+       "sudo usermod -a -G docker ec2-user",
+       "sleep 120",
+       "sudo docker container run --publish 80:80 --detach --name webhost nginx",
     ]
   }
   
