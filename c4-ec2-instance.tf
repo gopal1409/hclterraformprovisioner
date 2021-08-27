@@ -53,7 +53,7 @@ resource "aws_instance" "my-ec2-vm" {
   }
    
 }
-resource "null_resource" "sync_app "{
+resource "null_resource" "syncapp "{
     provisioner "local-exec" {
       command = "aws s3 ls"
     }
