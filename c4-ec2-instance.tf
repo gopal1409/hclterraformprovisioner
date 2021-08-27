@@ -51,9 +51,9 @@ resource "aws_instance" "my-ec2-vm" {
    command = "echo this instance is destroyed 'date' >> destroy-time.txt"
    working_dir = "local-exec-output-file/"
   }
-   provisioner "null_resource"{
+   resource "null_resource" "sync_app "{
     provisioner "local-exec" {
-      command = "aws s3 ls "
+      command = "aws s3 ls"
     }
   }
 }
